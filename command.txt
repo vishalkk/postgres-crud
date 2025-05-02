@@ -1,0 +1,11 @@
+# NOTES:
+
+# INSTALL POSTGRES ON DOCKER: docker pull postgres
+
+
+# RUN IMAGE IN DOCKER CONTAINER with env : docker run --name postgres-db -e POSTGRES_PASSWORD=Vishal@0044 -p 5432:5432 -d postgres 
+# DOCKER running: docker ps 
+# RUNNIGN DOCKER INFO:  docker inspect id
+
+
+# Connect To postgresSQL container: docker exec -it postgres-db psql -u postgres

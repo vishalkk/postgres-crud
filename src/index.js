@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pool from './config/db.js';
+import userRoutes from './routes/userRoutes.js';
+import errorHandler from './middlewares/errorHandler.js';
 
 dotenv.config();
 const app = express();
@@ -12,8 +14,10 @@ app.use(cors());
 app.use(express.json());
 
 //routes
+app.use('/api', userRoutes);
 
 //Error handling middleware
+app.use(errorHandler);
 //Testing the connection to the database
 app.get('/', async (req, res) => {
     console.log('Connecting to the database...');

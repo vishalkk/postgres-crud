@@ -30,8 +30,7 @@ export const createUserService = async (name, email) => {
         return result.rows[0];
     }
 
-    export const deleteUserService = async (req, res) => {
-        const { id } = req.params;
+    export const deleteUserService = async (id, res) => {
         const result = await pool.query("DELETE FROM users WHERE id = $1 RETURNING *",
             [id]);
         return result.rows[0];

@@ -32,30 +32,38 @@ export const handleResponse = (res, status, message, data) => {
 //         data
 //     });
 // }
+/**
+ * Creates a new user with the provided name and email.
+ * 
+ * @param {Object} req - The request object containing user data in the body.
+ * @param {Object} res - The response object used to send the response.
+ * @param {Function} next - The next middleware function in the stack.
+ * @returns {Promise<void>} Sends a JSON response with the created user or an error.
+ */
 export const createUser= async(req,res,next)=>{
     const { name, email } = req.body;
     try {
-        const newUser = await userModel.createUserService(name, email);
+        const newUser = await createUserService(name, email);
         handleResponse(res, 201, 'User created successfully', newUser);
     } catch (error) {
         next(error);
     }
 }
 
-export const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res, next) => {
 
    try{
-    const newUser = await userModel.getAllUsersService();
+    const newUser = await getAllUsersService();
     handleResponse(res, 200, 'Users retrieved successfully', newUser);
    } catch(error){
     next(error);
    }
 }
 
-export const getUserById = async (req, res) => {
+export const getUserById = async (req, res,next) => {
     const { id } = req.params;
     try {
-        const user = await userModel.getUserByIdService(id);
+        const user = await getUserByIdService(id);
         if (!user) {
             return handleResponse(res, 404, 'User not found');
         }
@@ -64,11 +72,11 @@ export const getUserById = async (req, res) => {
         next(error);
     }
 }
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res,next) => {
     const { id } = req.params;
     const { name, email } = req.body;
     try {
-        const updatedUser = await userModel.updateUserService(id, name, email);
+        const updatedUser = await updateUserService(id, name, email);
         if (!updatedUser) {
             return handleResponse(res, 404, 'User not found');
         }
@@ -77,10 +85,10 @@ export const updateUser = async (req, res) => {
         next(error);
     }
 }
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res,next) => {
     const { id } = req.params;
     try {
-        const deletedUser = await userModel.deleteUserService(id);
+        const deletedUser = await deleteUserService(id);
         if (!deletedUser) {
             return handleResponse(res, 404, 'User not found');
         }

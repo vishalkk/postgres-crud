@@ -5,12 +5,12 @@ import pool from '../config/db.js';
 
 export const getAllUsersService = async (req, res) => {
     const result = await pool.query('SELECT * FROM users');
-
-    res.status(200).json(result.rows);
+   console.log(result.rows);
     return result.rows;
 }
 
 export const getUserByIdService = async (req, res) => {
+    const id = req.params.id;
     const result = await pool.query("SELECT * FROM users WHERE id = $1",[id]);
     return result.rows[0];
 };

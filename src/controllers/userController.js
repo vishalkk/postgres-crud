@@ -1,5 +1,10 @@
-import userModel from '../models/userModel.js';
-
+import {
+    getAllUsersService,
+    getUserByIdService,
+    createUserService,
+    updateUserService,
+    deleteUserService
+  } from '../models/userModel.js';
 //Standardized response format
 
 
@@ -30,7 +35,7 @@ export const handleResponse = (res, status, message, data) => {
 export const createUser= async(req,res,next)=>{
     const { name, email } = req.body;
     try {
-        const newUser = await userModel.createUser(name, email);
+        const newUser = await userModel.createUserService(name, email);
         handleResponse(res, 201, 'User created successfully', newUser);
     } catch (error) {
         next(error);
@@ -40,7 +45,7 @@ export const createUser= async(req,res,next)=>{
 export const getAllUsers = async (req, res) => {
 
    try{
-    const newUser = await userModel.getAllUsers();
+    const newUser = await userModel.getAllUsersService();
     handleResponse(res, 200, 'Users retrieved successfully', newUser);
    } catch(error){
     next(error);
@@ -50,7 +55,7 @@ export const getAllUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await userModel.getUserById(id);
+        const user = await userModel.getUserByIdService(id);
         if (!user) {
             return handleResponse(res, 404, 'User not found');
         }
@@ -63,7 +68,7 @@ export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { name, email } = req.body;
     try {
-        const updatedUser = await userModel.updateUser(id, name, email);
+        const updatedUser = await userModel.updateUserService(id, name, email);
         if (!updatedUser) {
             return handleResponse(res, 404, 'User not found');
         }
@@ -75,7 +80,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const deletedUser = await userModel.deleteUser(id);
+        const deletedUser = await userModel.deleteUserService(id);
         if (!deletedUser) {
             return handleResponse(res, 404, 'User not found');
         }

@@ -16,6 +16,7 @@ app.use(express.json());
 //routes
 app.use('/api', userRoutes);
 
+
 //Error handling middleware
 app.use(errorHandler);
 //Testing the connection to the database

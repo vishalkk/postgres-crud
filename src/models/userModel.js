@@ -9,24 +9,22 @@ export const getAllUsersService = async (req, res) => {
     return result.rows;
 }
 
-export const getUserByIdService = async (req, res) => {
-    const id = req.params.id;
+export const getUserByIdService = async (id) => {
     const result = await pool.query("SELECT * FROM users WHERE id = $1",[id]);
     return result.rows[0];
 };
 
 
-export const createUserService = async (req, res) => { 
-    const { name, email } = req.body;
+export const createUserService = async (name, email) => { 
     const result = await pool.query("INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *",
         [name, email]);
 
         return result.rows[0];
     };
 
-    export const updateUserService = async (req, res) => {
-        const { id } = req.params;
-        const { name, email } = req.body;
+    export const updateUserService = async (id,name,email) => {
+        // const { id } = req.params;
+        // const { name, email } = req.body;
         const result = await pool.query("UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *",
             [name, email, id]);
         return result.rows[0];

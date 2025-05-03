@@ -5,6 +5,7 @@ import {
     updateUserService,
     deleteUserService
   } from '../models/userModel.js';
+  import error from '../middlewares/errorHandler.js';
 //Standardized response format
 
 
